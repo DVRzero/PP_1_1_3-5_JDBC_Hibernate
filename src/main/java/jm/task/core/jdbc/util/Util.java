@@ -10,9 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 
-
 import java.util.Properties;
-
 
 public class Util {
     private final static String URL = "jdbc:mysql://localhost:3306/mydb";
