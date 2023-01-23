@@ -2,7 +2,6 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import jm.task.core.jdbc.util.Util;
@@ -20,6 +19,7 @@ public class UserDaoHibernateImpl implements UserDao {
             "  `age` INT NULL,\n" +
             "        PRIMARY KEY (`id`))";
     private final static String DROP = "DROP TABLE IF EXISTS users;";
+    private static List<User> list = null;
 
 
     private SessionFactory sessionFactory = Util.getSessionFactory();
@@ -27,13 +27,6 @@ public class UserDaoHibernateImpl implements UserDao {
 
     public UserDaoHibernateImpl() {
     }
-
-//    1. Создание таблицы для User(ов) – не должно приводить к исключению, если такая таблица уже существует
-//    2. Удаление таблицы User(ов) – не должно приводить к исключению, если таблицы не существует
-//    3. Очистка содержания таблицы
-//    4. Добавление User в таблицу
-//    5. Удаление User из таблицы ( по id )
-//    6. Получение всех User(ов) из таблицы
 
     @Override
     public void createUsersTable() {
@@ -101,9 +94,8 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> list = null;
         try (Session session = sessionFactory.openSession()) {
-            list = session.createQuery("from User").list();
+            list = session.createQuery("from User", User.class).list();
             System.out.println("Пользователя выведены в лист");
         } catch (Exception e) {
             System.out.println("Ошибка выведения пользователей в лист:");

@@ -1,12 +1,17 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
-import java.sql.*;
+
+//параметризуй квери - не работай с сырым типом - X
+//закомментированного кода быть не должно
+//поля класса - приватные - X
+//используй полиморфизм - обращайся к классу через интерфейс - X
 
 public class Main {
     public static void main(String[] args) {
 
-        UserServiceImpl userService = new UserServiceImpl();
+        UserService userService = new UserServiceImpl();
 
         userService.createUsersTable();
 
@@ -21,3 +26,4 @@ public class Main {
         userService.dropUsersTable();
     }
 }
+
